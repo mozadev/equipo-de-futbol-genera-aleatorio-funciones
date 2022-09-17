@@ -1,0 +1,165 @@
+#include <iostream>
+#include<stdlib.h>
+#include<conio.h>
+#include <Windows.h>
+#include <iomanip>
+#include <time.h>
+#include <ctime>
+using namespace std;
+//using namespace System;
+//variable = limite_inferior + rand() % (limite_superior +1 - limite_inferior) ;
+int ingresapositivo()
+{
+	int n;
+	do {
+		cout << "ingresa numero de futbolistas: "; cin >> n;
+	} while (n < 0 || n>25);
+	return n;
+}
+void generarDatos(int* n, char * posicion, int *minutos)
+{
+	//Random r;
+	srand(time(NULL));
+
+	for (int j = 0; j < *n; j++)
+	{
+		//tallas[0][j] = j + 1;
+		string alphabet = "ADME";
+		posicion[j]= alphabet[rand() % alphabet.size()];
+
+		//tallas[1][j] = (r.Next(155, 221)) / 100.0;
+		minutos[j] = (rand() % (1000 + 1 - 0));
+	}
+}
+void salidadatos(int* n, char* posicion, int* minutos)
+{
+	for (int i = 0; i < *n; i++)
+	{
+		cout << posicion[i] << "\t";
+
+
+	}
+	cout << endl;
+	for (int i = 0; i < *n; i++)
+	{
+		cout << minutos[i] << "\t";
+
+
+	}
+
+
+}
+
+
+void lista_mayorTiempo(int* n, char* posicion, int* minutos) {
+
+	int mayor = 0;
+	int posicionMayor=0;
+	for (int i = 0; i < *n; i++)
+	{
+		if (minutos[i] > mayor) {
+			mayor = minutos[i];
+			posicionMayor = i;
+		}
+	}
+	cout << "\nPUESTO    MINUTOS" << endl;
+	cout << posicion[posicionMayor] << "\t" << minutos[posicionMayor] << endl;
+
+
+}
+
+void Total_PuestoyMinutos(int* n, char* posicion, int* minutos) {
+
+	int cantA = 0, cantD = 0, cantM = 0, cantE = 0;
+	
+	int tiempoA = 0, tiempoD = 0, tiempoM = 0, tiempoE = 0;
+	
+	for (int i = 0; i < *n; i++)
+	{
+		if (posicion[i] == 'A') {
+			cantA++;
+			tiempoA = tiempoA + minutos[i];
+		}
+		if (posicion[i] == 'D') {
+			cantD++;
+			tiempoD = tiempoD + minutos[i];
+		}
+		if (posicion[i] == 'M') {
+			cantM++;
+			tiempoM = tiempoM + minutos[i];
+		}
+		if (posicion[i] == 'E') {
+			cantE++;
+			tiempoE = tiempoE + minutos[i];
+		}
+	}
+	cout << "\nPuesto  Cant	Tiempo total" << endl;
+	cout << 'A' << "\t" <<cantA <<"\t" << tiempoA<< endl;
+	cout << 'D' << "\t" <<cantD <<"\t" << tiempoD<< endl;
+	cout << 'M' << "\t" <<cantM <<"\t" << tiempoM<< endl;
+	cout << 'E' << "\t" <<cantE <<"\t" << tiempoE<< endl;
+
+
+}
+
+//
+//void ordenascendente(int* n, float** tallas)
+//{
+//	float temp;
+//	for (int i = 0; i < *n - 1; i++)
+//		for (int j = i + 1; j < *n; j++)
+//			if (tallas[1][i] > tallas[1][j])
+//			{
+//				temp = tallas[1][i];
+//				tallas[1][i] = tallas[1][j];
+//				tallas[1][j] = temp;
+//			}
+//}
+//void promedionperticipantes(int* n, float** tallas)
+//{
+//	float suma = 0;
+//	for (int i = 0; i < *n; i++)
+//		suma += tallas[1][i];
+//	cout << "el promedio de tallas es: " << suma / (*n) << endl;
+//
+//
+//}
+//
+//void determinarliberomatadoralevantadora(int* n, float** tallas)
+//{
+//	int contadorlibero = 0, contadorlevanta = 0, contamatadora = 0;
+//	for (int i = 0; i < *n; i++)
+//	{
+//		if (tallas[1][i] >= 1.55 && tallas[1][i] <= 1.69)
+//			contadorlibero++;
+//		if (tallas[1][i] >= 1.7 && tallas[1][i] <= 1.85)
+//			contadorlevanta++;
+//		if (tallas[1][i] >= 1.86)
+//			contamatadora++;
+//	}
+//	cout << "LIBERO: " << contadorlibero << endl;
+//	cout << "LEVANTADORA: " << contadorlevanta << endl;
+//	cout << "MATADADORA: " << contamatadora << endl;
+//
+//	if (contamatadora < *n / 2)
+//		cout << "REALIZAR NUEVA CONVOCATORIA  " << endl;
+//}
+
+int main()
+{
+	int n = ingresapositivo();
+	
+	char* posicion = new char[n];
+	int* minutos = new int[n];
+	generarDatos(&n, posicion,minutos);
+	salidadatos(&n, posicion, minutos);
+
+	lista_mayorTiempo(&n, posicion, minutos);
+	Total_PuestoyMinutos(&n, posicion, minutos);
+
+	delete[]posicion;
+	delete[]minutos;
+
+	_getch();
+
+}
